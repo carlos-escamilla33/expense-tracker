@@ -8,31 +8,54 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
   styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent implements OnInit {
-  
-  form = this.fb.group({
-    users: this.fb.array([])
-  });
 
-  constructor(private fb:FormBuilder) { }
+  usersTable: FormGroup;
+  control: FormArray;
+  touchedRows: any;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.touchedRows = [];
+    this.usersTable = this.fb.group({
+      tableRows: this.fb.array([])
+    });
+    this.addUser();
   }
 
-  get users() {
-    return this.form.controls["users"] as FormArray;
+  ngAfterOnInit() {
+    this.control = this.usersTable.get("tableRows") as FormArray;
+  }
+
+  initializeForm(): FormGroup {
+    return this.fb.group({
+      name: ["", Validators.required],
+      lastName: ["", Validators.required],
+      isEditable: [true]
+    });
   }
 
   addUser() {
-    const userForm = this.fb.group({
-      firstName: ["", Validators.required],
-      lastName: ["", Validators.required]
-    })
-
-    this.users.push(userForm);
+    const control = this.usersTable.get("tableRows") as FormArray;
+    control.push(this.initializeForm());
   }
 
-  deleteUser(userIdx: number) {
-    this.users.removeAt(userIdx);
+  deleteUser(index: number) {
+    const control =  this.usersTable.get('tableRows') as FormArray;
+    control.removeAt(index);
+  }
+
+  editUser(group: FormGroup) {
+    group.get("isEditable").setValue(true);
+  }
+
+  userAdded(group: FormGroup) {
+    group.get('isEditable').setValue(false);
+  }
+
+  get getFormControls() {
+    const control = this.usersTable.get('tableRows') as FormArray;
+    return control;
   }
 
 }
