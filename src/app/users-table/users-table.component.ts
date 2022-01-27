@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
   styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent implements OnInit {
-
+  
   usersTable: FormGroup;
   control: FormArray;
 
