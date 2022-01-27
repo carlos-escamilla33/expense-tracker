@@ -8,11 +8,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { UsersTableComponent } from './users-table/users-table.component';
+import { ExpensesTableComponent } from './expenses-table/expenses-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersTableComponent,
+    ExpensesTableComponent,
   ],
   imports: [
     BrowserModule,

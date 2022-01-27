@@ -11,12 +11,10 @@ export class UsersTableComponent implements OnInit {
 
   usersTable: FormGroup;
   control: FormArray;
-  touchedRows: any;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.touchedRows = [];
     this.usersTable = this.fb.group({
       tableRows: this.fb.array([])
     });
@@ -31,14 +29,13 @@ export class UsersTableComponent implements OnInit {
     return this.fb.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
-      expenses: ["$0"],
+      expenses: [`$${0}`],
       isEditable: [true]
     });
   }
 
   addUser() {
     const control = this.usersTable.get("tableRows") as FormArray;
-    console.log(control);
     control.push(this.initializeForm());
   }
 
