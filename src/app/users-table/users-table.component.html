@@ -3,13 +3,14 @@
         <thead class="text-nowrap">
             <th>First Name<span class="ui-column-resizer"> </span></th>
             <th>Last Name<span class="ui-column-resizer"> </span></th>
+            <th>Expenses<span class="ui-column-resizer"> </span></th>
         </thead>
         <tbody>
             <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
-                <tr *ngIf="group.get('isEditable')" [formGroupName]="i">
+                <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
                     <td>
                         <mat-form-field>
-                            <input matInput type="text" formControlName="name">
+                            <input matInput type="text" formControlName="firstName">
                         </mat-form-field>
                     </td>
                     <td>
@@ -18,8 +19,11 @@
                         </mat-form-field>
                     </td>
                     <td>
+                        {{group.get("expenses").value}}
+                    </td>
+                    <td>
                         <mat-icon class="delete" (click)="deleteUser(i)">delete_forever</mat-icon>
-                        <!-- <mat-icon class="done" (click)="userAdded(group)">done</mat-icon> -->
+                        <mat-icon class="done" (click)="userAdded(group)">done</mat-icon>
                     </td>
                 </tr>
                 <tr *ngIf="!group.get('isEditable').value">
@@ -29,9 +33,12 @@
                     <td>
                         {{group.get('lastName').value}}
                     </td>
-                    <!-- <td>
+                    <td>
+                        {{group.get("expenses").value}}
+                    </td>
+                    <td>
                         <mat-icon class="edit" (click)="editUser(group)">edit</mat-icon>
-                    </td> -->
+                    </td>
                 </tr>
             </ng-container>
         </tbody>
@@ -40,7 +47,3 @@
         <button mat-raised-button type="submit" (click)="addUser()">Add row</button>
     </div>
 </form>
-<div class="output">
-    <p>Form Data:  {{usersTable.value | json}}</p>
-      <p>Is Valid: {{usersTable.valid}}</p>
-  </div>

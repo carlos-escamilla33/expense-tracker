@@ -29,14 +29,16 @@ export class UsersTableComponent implements OnInit {
 
   initializeForm(): FormGroup {
     return this.fb.group({
-      name: ["", Validators.required],
+      firstName: ["", Validators.required],
       lastName: ["", Validators.required],
+      expenses: ["$0"],
       isEditable: [true]
     });
   }
 
   addUser() {
     const control = this.usersTable.get("tableRows") as FormArray;
+    console.log(control);
     control.push(this.initializeForm());
   }
 
