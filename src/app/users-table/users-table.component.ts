@@ -1,18 +1,19 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-users-table',
   templateUrl: './users-table.component.html',
-  styleUrls: ['./users-table.component.css']
+  styleUrls: ['./users-table.component.css'],
 })
 export class UsersTableComponent implements OnInit {
   
   usersTable: FormGroup;
   control: FormArray;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.usersTable = this.fb.group({
@@ -50,6 +51,7 @@ export class UsersTableComponent implements OnInit {
 
   userAdded(group: FormGroup) {
     group.get('isEditable').setValue(false);
+    this.dataService.addData(group);
   }
 
   get getFormControls() {
