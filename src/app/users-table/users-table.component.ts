@@ -1,7 +1,6 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-users-table',
@@ -11,9 +10,9 @@ import { DataService } from '../data.service';
 export class UsersTableComponent implements OnInit {
   
   usersTable: FormGroup;
-  control: FormArray;
+  @Output() control: FormArray;
 
-  constructor(private fb: FormBuilder, private dataService: DataService) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.usersTable = this.fb.group({
@@ -51,12 +50,10 @@ export class UsersTableComponent implements OnInit {
 
   userAdded(group: FormGroup) {
     group.get('isEditable').setValue(false);
-    this.dataService.addData(group);
   }
 
   get getFormControls() {
     const control = this.usersTable.get('tableRows') as FormArray;
     return control;
   }
-
 }

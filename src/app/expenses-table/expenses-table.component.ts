@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { DataService } from '../data.service';
+
 @Component({
   selector: 'app-expenses-table',
   templateUrl: './expenses-table.component.html',
@@ -12,7 +12,7 @@ export class ExpensesTableComponent implements OnInit {
   expensesTable: FormGroup;
   control: FormArray;
 
-  constructor(private fb: FormBuilder, public dataService: DataService) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.expensesTable = this.fb.group({
